@@ -4,9 +4,9 @@
   { "name": "1-pc Snow Cheese Chicken", "image": "1pc-snowcheesechicken-meal.png", "calories": 600, "category": "Korean Fried Chicken" },
   { "name": "2-pc Snow Cheese Chicken", "image": "2pc-snowcheesechicken-meal.png", "calories": 920, "category": "Korean Fried Chicken" },
   { "name": "Chicken Poppers", "image": "chickenpoppers-alacarte.png", "calories": 480, "category": "Korean Fried Chicken" },
-  { "name": "Boneless Chikin with Rice", "image": "bonlesschikin-meal.png", "calories": 700, "category": "Korean Fried Chicken" },
+  { "name": "Bonless Chikin with Rice", "image": "bonlesschikin-meal.png", "calories": 700, "category": "Korean Fried Chicken" },
 
-  { "name": "BTS Boneless & Rosébokki", "image": "bts-bonlesschikin&rosebokki.png", "calories": 1450, "category": "Group Meals" },
+  { "name": "BTS Bonless & Rosébokki", "image": "bts-bonlesschikin&rosebokki.png", "calories": 1450, "category": "Group Meals" },
   { "name": "BTS Bonless Chikin", "image": "bts-bonlesschikin.png", "calories": 1300, "category": "Group Meals" },
   { "name": "BTS Crispy Mandu", "image": "bts-crispymandu.png", "calories": 1100, "category": "Group Meals" },
   { "name": "BTS Korean Fried Chicken", "image": "bts-kfriedchicken.png", "calories": 1500, "category": "Group Meals" },
