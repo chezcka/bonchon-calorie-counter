@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Rubik:wght@300;400;500;700&display=swap");
+
+/* ================= HEADER ================= */
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logout-btn {
+  background: #e31837;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px rgba(0,0,0,0.2);
+}
+
+.logout-btn:active {
+  transform: scale(0.97);
+}
+
+/* page */
+.admin-panel {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f7f7f9;
+  font-family: "Rubik", sans-serif;
+  color: #000;
+}
+
+.admin-panel h2 {
+  margin-bottom: 30px;
+  font-family: "Londrina Solid", cursive;
+  letter-spacing: 1px;
+  font-size: 34px;
+}
+
+/* category */
+.category-block {
+  margin-bottom: 45px;
+}
+
+.category-block h3 {
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+/* grid */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 18px;
+}
+
+/* card */
+.admin-card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+
+.admin-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* image */
+.image-area img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  background: #fafafa;
+  padding: 10px;
+}
+
+/* info */
+.card-info {
+  padding: 12px;
+}
+
+.item-name {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.item-cal {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* ================= DELETE BUTTON ================= */
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 10px; /* ⭐ square with rounding */
+  border: none;
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  padding: 0;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+
+  transition: transform .15s ease, background .15s ease;
+}
+
+.delete-btn:hover {
+  transform: scale(1.08);
+  background: #fff0f2;
+}
+
+.trash-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ================= FAB ================= */
+
+.fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 64px;
+  height: 80px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 34px;
+  border: none;
+  background: #e31837;
+  color: white;
+  cursor: pointer;
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+
+.fab:active {
+  transform: scale(0.97);
+}
+
+/* ================= MODAL ================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  width: 360px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  font-family: "Londrina Solid", cursive;
+  margin-bottom: 15px;
+}
+
+/* form */
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal input,
+.modal select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-family: "Rubik", sans-serif;
+}
+
+.modal input:focus,
+.modal select:focus {
+  outline: none;
+  border-color: #e31837;
+}
+
+/* buttons */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modal-actions button[type="button"] {
+  background: #eee;
+}
+
+.modal-actions button[type="submit"] {
+  background: #e31837;
+  color: white;
+}

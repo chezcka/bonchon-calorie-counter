@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Rubik:wght@300;400;500;700&display=swap");
+
+html,
+body {
+  margin: 0;
+  background: #ffffff;
+  font-family: "Rubik", sans-serif;
+  overflow-x: hidden; 
+}
+
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+}
+
+.admin-login-card {
+  background: white;
+  width: 350px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.admin-login-card h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: black;
+  font-family: "Londrina Solid", cursive;
+  letter-spacing: 1px;
+}
+
+.admin-login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.admin-login-card input:focus {
+  outline: none;
+  border-color: #e31837;
+}
+
+.admin-login-card button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #e31837;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.admin-login-card button:hover {
+  opacity: 0.9;
+}
+
+.error-text {
+  color: red;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 10px;
+}

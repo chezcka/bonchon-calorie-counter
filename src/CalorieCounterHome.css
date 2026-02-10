@@ -1,0 +1,389 @@
+/* ============================= */
+/* GOOGLE FONTS                  */
+/* ============================= */
+@import url("https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Rubik:wght@300;400;500;700&display=swap");
+
+/* ============================= */
+/* GLOBAL                        */
+/* ============================= */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: #ffffff;
+  font-family: "Rubik", sans-serif;
+  overflow-x: hidden; 
+}
+
+/* ============================= */
+/* WRAPPER                       */
+/* ============================= */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ============================= */
+/* HEADER                        */
+/* ============================= */
+.intro {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+}
+
+.intro-inner {
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 40px;
+}
+
+.logo {
+  height: 60px;
+}
+
+.intro-text h1 {
+  margin: 0;
+  font-size: 22px;
+  font-family: "Londrina Solid", cursive;
+}
+
+.intro-text p {
+  margin-top: 6px;
+  color: #666;
+  font-size: 14px;
+  max-width: 900px;
+}
+
+/* ============================= */
+/* PAGE                          */
+/* ============================= */
+.page {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* ⭐ centers whole app */
+  padding: 20px 40px;
+}
+
+.app-layout {
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  gap: 20px;
+}
+
+/* ============================= */
+/* LEFT PANEL                    */
+/* ============================= */
+.menu-panel {
+  flex: 1;
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.category {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* ============================= */
+/* ITEMS GRID                    */
+/* ============================= */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.item-card {
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #eee;
+  background: white;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.item-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.food-img {
+  width: 100%;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
+.item-name {
+  font-size: 14px;
+  font-family: "Londrina Solid", cursive;
+}
+
+.item-cal {
+  color: #e10600;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* ============================= */
+/* RIGHT PANEL                   */
+/* ============================= */
+.plate-panel {
+  width: 380px;
+  flex-shrink: 0;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.goal-box label {
+  font-size: 14px;
+}
+
+.goal-box input {
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* ============================= */
+/* TOTAL                         */
+/* ============================= */
+.total-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.total-box h2 {
+  font-family: "Londrina Solid", cursive;
+  color: #e10600;
+  font-size: 30px;
+}
+
+/* ============================= */
+/* PROGRESS                      */
+/* ============================= */
+.progress-bar {
+  height: 12px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress {
+  height: 100%;
+  width: 0%;
+  background: #e10600;
+}
+
+/* ============================= */
+/* WARNING                       */
+/* ============================= */
+.warning {
+  background: #ffeaea;
+  color: #d8000c;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* ============================= */
+/* EMPTY STATE                   */
+/* ============================= */
+.empty {
+  flex: 1;
+  border: 2px dashed #eee;
+  border-radius: 12px;
+  padding: 20px;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ============================= */
+/* PLATE ITEMS                   */
+/* ============================= */
+.plate-items {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.plate-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.plate-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.plate-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.plate-name {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1.25;
+  margin-bottom: 2px;
+  word-break: break-word;
+}
+
+.plate-cal {
+  color: #e10600;
+  font-size: 13px;
+}
+
+/* ============================= */
+/* QTY                           */
+/* ============================= */
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* buttons */
+.qty button {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+
+  /* ⭐ THE FIX */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;        
+  padding: 0;            
+
+  transition: 0.15s ease;
+}
+
+/* minus */
+.qty button:first-child {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.qty button:first-child:hover {
+  background: #e2e2e2;
+}
+
+/* plus */
+.qty button:last-child {
+  background: #e10600;
+  color: white;
+}
+
+.qty button:last-child:hover {
+  background: #b80000;
+}
+
+/* quantity number */
+.qty span {
+  min-width: 22px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.qty,
+.remove {
+  flex-shrink: 0;
+}
+
+/* remove button */
+.remove {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ============================= */
+/* ACTIONS                       */
+/* ============================= */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #ffc400;
+  font-family: "Londrina Solid", cursive;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.actions .clear {
+  background: #e10600;
+  color: white;
+}
+
+/* ============================= */
+/* HINT                          */
+/* ============================= */
+.hint {
+  text-align: center;
+  margin-top: 10px;
+  color: #777;
+  font-size: 13px;
+}
