@@ -56,6 +56,7 @@ body {
   margin: 0;
   font-size: 22px;
   font-family: "Londrina Solid", cursive;
+  color: black !important;
 }
 
 .intro-text p {
@@ -104,12 +105,16 @@ body {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ddd;
+  background: white !important;
+  color: #666;
 }
 
 .category {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ddd;
+  color: #666 !important;
+  background-color: white !important;
 }
 
 /* ============================= */
@@ -129,6 +134,7 @@ body {
   background: white;
   cursor: pointer;
   transition: 0.15s;
+  color: black !important;
 }
 
 .item-card:hover {
@@ -146,10 +152,11 @@ body {
 .item-name {
   font-size: 14px;
   font-family: "Londrina Solid", cursive;
+  color: black !important;
 }
 
 .item-cal {
-  color: #e10600;
+  color: #e10600 !important;
   font-weight: bold;
   font-size: 13px;
 }
@@ -177,6 +184,8 @@ body {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ddd;
+  background-color: white;
+  color: #666;
 }
 
 /* ============================= */
@@ -185,11 +194,12 @@ body {
 .total-box {
   margin-top: 20px;
   text-align: center;
+  color: black !important;
 }
 
 .total-box h2 {
   font-family: "Londrina Solid", cursive;
-  color: #e10600;
+  color: #e10600 !important;
   font-size: 30px;
 }
 
@@ -274,10 +284,11 @@ body {
   line-height: 1.25;
   margin-bottom: 2px;
   word-break: break-word;
+  color: black !important;
 }
 
 .plate-cal {
-  color: #e10600;
+  color: #e10600 !important;
   font-size: 13px;
 }
 
@@ -337,6 +348,7 @@ body {
   text-align: center;
   font-weight: bold;
   font-size: 15px;
+  color: black !important;
 }
 
 .qty,
@@ -387,3 +399,4 @@ body {
   color: #777;
   font-size: 13px;
 }
+
