@@ -412,3 +412,91 @@ body {
   border-top: 1px solid #eee;
   background: #fff;
 }
+
+
+/* ================================================= */
+/* MOBILE / TABLET RESPONSIVE                       */
+/* ================================================= */
+@media (max-width: 900px) {
+  /* stack panels */
+  .app-layout {
+    flex-direction: column;
+  }
+
+  /* right panel becomes full width */
+  .plate-panel {
+    width: 100%;
+  }
+
+  /* controls wrap nicely */
+  .controls {
+    flex-direction: column;
+  }
+
+  .search,
+  .category {
+    width: 100%;
+  }
+
+  /* smaller page padding */
+  .page {
+    padding: 15px;
+  }
+}
+
+/* ================================================= */
+/* PHONE SIZE                                       */
+/* ================================================= */
+@media (max-width: 600px) {
+  /* header */
+  .intro-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .intro-text h1 {
+    font-size: 18px;
+  }
+
+  .intro-text p {
+    font-size: 13px;
+  }
+
+  /* tighter panels */
+  .menu-panel,
+  .plate-panel {
+    padding: 15px;
+  }
+
+  /* grid becomes 2 columns */
+  .items-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* buttons bigger for thumbs */
+  .actions button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* qty buttons slightly larger */
+  .qty button {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* total number */
+  .total-box h2 {
+    font-size: 26px;
+  }
+
+  /* empty box height nicer */
+  .empty {
+    min-height: 140px;
+  }
+}
