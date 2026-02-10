@@ -253,6 +253,12 @@ function CalorieCounterHome() {
           </div>
         </div>
       </div>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        © 2026 Scottland Food Group Corp. IT Solutions
+      </footer>
+      
     </div>
   );
 }

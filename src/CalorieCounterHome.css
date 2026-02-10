@@ -400,3 +400,15 @@ body {
   font-size: 13px;
 }
 
+/* ============================= */
+/* FOOTER                        */
+/* ============================= */
+.footer {
+  margin-top: auto;
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
