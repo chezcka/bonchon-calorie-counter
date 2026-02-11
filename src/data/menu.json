@@ -28,7 +28,7 @@
   { "name": "6-pc Crispy Mandu", "image": "6pc-crispymandu-meal.png", "calories": 520, "category": "Mandu Korean Dumplings" },
 
   { "name": "Bap Bowl", "image": "bapbowl-meal.png", "calories": 700, "category": "Korean Rice Bowls" },
-  { "name": "Bibimbowl", "image": "bibimbolw-meal.png", "calories": 760, "category": "Korean Rice Bowls" },
+  { "name": "Bibimbowl", "image": "bibimbowl-meal.png", "calories": 760, "category": "Korean Rice Bowls" },
   { "name": "Ultimate Bibimbowl", "image": "ultimatebibimbowl-mealwithdrinkandsoup.png", "calories": 980, "category": "Korean Rice Bowls" },
 
   { "name": "Classic Ko-dog", "image": "classic-kodog.png", "calories": 520, "category": "Sandwiches" },
