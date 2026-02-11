@@ -40,8 +40,11 @@ function CalorieCounterHome() {
 
   const adminMenu = getAdminMenu() || {};
   const adminItems = Object.values(adminMenu).flat();
+  const hidden = JSON.parse(localStorage.getItem("bonchon_hidden_items") || "[]");
 
-  const menu = [...data, ...adminItems];
+  const menu = [...data, ...adminItems].filter(
+    (item) => !hidden.includes(item.name)
+  );
 
   /* ================= FILTER ================= */
   const filtered = useMemo(() => {
