@@ -20,7 +20,6 @@ const categories = [
 ];
 
 function CalorieCounterHome() {
-  /* ================= REALTIME REFRESH ================= */
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -36,15 +35,29 @@ function CalorieCounterHome() {
   const [plate, setPlate] = useState([]);
   const [goal, setGoal] = useState(2000);
 
-  /* ================= MERGE MENUS ================= */
+  /* ================= MERGE BASE + ADMIN ================= */
 
   const adminMenu = getAdminMenu() || {};
-  const adminItems = Object.values(adminMenu).flat();
-  const hidden = JSON.parse(localStorage.getItem("bonchon_hidden_items") || "[]");
+  const adminItems = Object.values(adminMenu)
+    .flat()
+    .filter((i) => !i.deleted);
 
-  const menu = [...data, ...adminItems].filter(
-    (item) => !hidden.includes(item.name)
-  );
+  // give ids to base items
+  let menu = data.map((item, index) => ({
+    ...item,
+    id: item.id ?? `base-${index}`,
+  }));
+
+  // replace or add
+  adminItems.forEach((adminItem) => {
+    const index = menu.findIndex((b) => b.id === adminItem.id);
+
+    if (index !== -1) {
+      menu[index] = adminItem; // replace, keep position
+    } else {
+      menu.push(adminItem); // new item
+    }
+  });
 
   /* ================= FILTER ================= */
   const filtered = useMemo(() => {
@@ -59,50 +72,41 @@ function CalorieCounterHome() {
     return menu.filter((i) => i.category === selectedCategory);
   }, [selectedCategory, search, refresh]);
 
-  /* ================= IMAGE LOADER ================= */
+  /* ================= IMAGE ================= */
   const getImage = (img) => {
     if (!img) return "https://via.placeholder.com/150";
-
-    // uploaded image
     if (img.startsWith("data:")) return img;
-
-    // external
     if (img.startsWith("http")) return img;
-
-    // file from assets
     return new URL(`./assets/menu/${img}`, import.meta.url).href;
   };
 
-  /* ================= ADD ITEM ================= */
+  /* ================= ADD TO PLATE ================= */
   const addToPlate = (item) => {
     setPlate((prev) => {
-      const existing = prev.find((p) => p.name === item.name);
+      const existing = prev.find((p) => p.id === item.id);
       if (existing) {
         return prev.map((p) =>
-          p.name === item.name ? { ...p, qty: p.qty + 1 } : p
+          p.id === item.id ? { ...p, qty: p.qty + 1 } : p
         );
       }
       return [...prev, { ...item, qty: 1 }];
     });
   };
 
-  /* ================= REMOVE ================= */
-  const removeFromPlate = (name) => {
-    setPlate((prev) => prev.filter((p) => p.name !== name));
+  const removeFromPlate = (id) => {
+    setPlate((prev) => prev.filter((p) => p.id !== id));
   };
 
-  /* ================= CHANGE QTY ================= */
-  const changeQty = (name, delta) => {
+  const changeQty = (id, delta) => {
     setPlate((prev) =>
       prev
         .map((p) =>
-          p.name === name ? { ...p, qty: p.qty + delta } : p
+          p.id === id ? { ...p, qty: p.qty + delta } : p
         )
         .filter((p) => p.qty > 0)
     );
   };
 
-  /* ================= TOTAL ================= */
   const totalCalories = useMemo(() => {
     return plate.reduce((sum, item) => sum + item.calories * item.qty, 0);
   }, [plate]);
@@ -113,7 +117,6 @@ function CalorieCounterHome() {
   /* ================= UI ================= */
   return (
     <div className="wrapper">
-      {/* HEADER */}
       <div className="intro">
         <div className="intro-inner">
           <img src={logo} alt="Bonchon logo" className="logo" />
@@ -127,7 +130,6 @@ function CalorieCounterHome() {
         </div>
       </div>
 
-      {/* PAGE */}
       <div className="page">
         <div className="app-layout">
           {/* LEFT */}
@@ -152,9 +154,9 @@ function CalorieCounterHome() {
             </div>
 
             <div className="items-grid">
-              {filtered.map((item, i) => (
+              {filtered.map((item) => (
                 <div
-                  key={i}
+                  key={item.id}
                   className="item-card"
                   onClick={() => addToPlate(item)}
                 >
@@ -196,12 +198,6 @@ function CalorieCounterHome() {
               />
             </div>
 
-            {isOver && (
-              <div className="warning">
-                ⚠ You exceeded your daily calorie goal.
-              </div>
-            )}
-
             {plate.length === 0 ? (
               <div className="empty">
                 No items yet — add items from the left.
@@ -209,7 +205,7 @@ function CalorieCounterHome() {
             ) : (
               <div className="plate-items">
                 {plate.map((item) => (
-                  <div key={item.name} className="plate-item">
+                  <div key={item.id} className="plate-item">
                     <img src={getImage(item.image)} alt={item.name} />
 
                     <div className="plate-info">
@@ -220,14 +216,14 @@ function CalorieCounterHome() {
                     </div>
 
                     <div className="qty">
-                      <button onClick={() => changeQty(item.name, -1)}>-</button>
+                      <button onClick={() => changeQty(item.id, -1)}>-</button>
                       <span>{item.qty}</span>
-                      <button onClick={() => changeQty(item.name, 1)}>+</button>
+                      <button onClick={() => changeQty(item.id, 1)}>+</button>
                     </div>
 
                     <button
                       className="remove"
-                      onClick={() => removeFromPlate(item.name)}
+                      onClick={() => removeFromPlate(item.id)}
                     >
                       ✕
                     </button>
@@ -244,9 +240,7 @@ function CalorieCounterHome() {
               >
                 Copy
               </button>
-
               <button>Share</button>
-
               <button className="clear" onClick={() => setPlate([])}>
                 Clear
               </button>
@@ -257,11 +251,9 @@ function CalorieCounterHome() {
         </div>
       </div>
 
-      {/* FOOTER */}
       <footer className="footer">
         © 2026 Scottland Food Group Corp. IT Solutions
       </footer>
-      
     </div>
   );
 }

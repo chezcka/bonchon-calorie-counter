@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import baseMenu from "../data/menu.json";
 import { getAdminMenu, saveAdminMenu } from "../utils/menuStorage";
 import trashIcon from "../assets/trash-solid.svg";
+import penIcon from "../assets/pen-solid.svg";
 import "./AdminPanel.css";
-
-const HIDDEN_KEY = "bonchon_hidden_items";
 
 export default function AdminPanel() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+
+  const [editingItem, setEditingItem] = useState(null);
 
   const [category, setCategory] = useState("");
   const [newCategory, setNewCategory] = useState("");
@@ -21,23 +23,24 @@ export default function AdminPanel() {
   const [refresh, setRefresh] = useState(false);
 
   const adminMenu = getAdminMenu() || {};
-  const hidden = JSON.parse(localStorage.getItem(HIDDEN_KEY) || "[]");
 
-  /* ================= LOGOUT ================= */
   const handleLogout = () => {
-    localStorage.removeItem("adminLoggedIn"); // change if your key is different
-    navigate("/admin"); // go back to login page
+    localStorage.removeItem("adminLoggedIn");
+    navigate("/admin");
   };
 
   /* ================= GROUP BASE ================= */
   const grouped = {};
 
-  baseMenu.forEach((item) => {
-    if (hidden.includes(item.name)) return;
-
+  baseMenu.forEach((item, index) => {
     const cat = item.category || "Uncategorized";
     if (!grouped[cat]) grouped[cat] = [];
-    grouped[cat].push(item);
+
+    grouped[cat].push({
+      ...item,
+      id: `base-${index}`,
+      isBase: true,
+    });
   });
 
   /* ================= MERGE ADMIN ================= */
@@ -45,8 +48,13 @@ export default function AdminPanel() {
     if (!Array.isArray(adminMenu[cat])) continue;
     if (!grouped[cat]) grouped[cat] = [];
 
-    const items = adminMenu[cat].filter((i) => !hidden.includes(i.name));
-    grouped[cat] = [...grouped[cat], ...items];
+    const items = adminMenu[cat].filter((i) => !i.deleted);
+
+    items.forEach((adminItem) => {
+      const index = grouped[cat].findIndex((b) => b.id === adminItem.id);
+      if (index !== -1) grouped[cat][index] = adminItem;
+      else grouped[cat].push(adminItem);
+    });
   }
 
   const categories = Object.keys(grouped);
@@ -87,6 +95,7 @@ export default function AdminPanel() {
     }
 
     updated[finalCategory].push({
+      id: Date.now(),
       category: finalCategory,
       name,
       calories: Number(calories),
@@ -96,15 +105,12 @@ export default function AdminPanel() {
     saveAdminMenu(updated);
     window.dispatchEvent(new Event("menuUpdated"));
 
-    alert("Item added!");
-
     setShowModal(false);
     setName("");
     setCalories("");
     setImage("");
     setPreview("");
     setNewCategory("");
-
     setRefresh((p) => !p);
   };
 
@@ -112,20 +118,60 @@ export default function AdminPanel() {
   const handleDelete = (item) => {
     if (!window.confirm(`Delete "${item.name}" ?`)) return;
 
-    const hiddenNow = JSON.parse(localStorage.getItem(HIDDEN_KEY) || "[]");
+    const updated = { ...adminMenu };
+    const cat = item.category;
 
-    if (!hiddenNow.includes(item.name)) {
-      hiddenNow.push(item.name);
-      localStorage.setItem(HIDDEN_KEY, JSON.stringify(hiddenNow));
+    if (!Array.isArray(updated[cat])) updated[cat] = [];
+
+    updated[cat] = updated[cat].filter((i) => i.id !== item.id);
+
+    if (item.isBase) {
+      updated[cat].push({ ...item, deleted: true });
     }
 
+    saveAdminMenu(updated);
     window.dispatchEvent(new Event("menuUpdated"));
+    setRefresh((p) => !p);
+  };
+
+  /* ================= EDIT ================= */
+  const openEdit = (item) => {
+    setEditingItem(item);
+    setName(item.name);
+    setCalories(item.calories);
+    setShowEdit(true);
+  };
+
+  const handleEditSave = (e) => {
+    e.preventDefault();
+
+    const updated = { ...adminMenu };
+    const cat = editingItem.category;
+
+    if (!Array.isArray(updated[cat])) updated[cat] = [];
+
+    const index = updated[cat].findIndex((i) => i.id === editingItem.id);
+
+    const newItem = {
+      ...editingItem,
+      name,
+      calories: Number(calories),
+      isBase: false,
+    };
+
+    if (index !== -1) updated[cat][index] = newItem;
+    else updated[cat].push(newItem);
+
+    saveAdminMenu(updated);
+    window.dispatchEvent(new Event("menuUpdated"));
+
+    setShowEdit(false);
+    setEditingItem(null);
     setRefresh((p) => !p);
   };
 
   return (
     <div className="admin-panel">
-      {/* HEADER */}
       <div className="admin-header">
         <h2>BonChon Calorie Counter Items</h2>
         <button className="logout-btn" onClick={handleLogout}>
@@ -138,14 +184,20 @@ export default function AdminPanel() {
           <h3>{cat}</h3>
 
           <div className="items-grid">
-            {grouped[cat].map((item, i) => (
-              <div key={i} className="admin-card">
-                {/* IMAGE */}
+            {grouped[cat].map((item) => (
+              <div key={item.id} className="admin-card">
                 <div className="image-area">
                   <img src={getImage(item.image)} alt={item.name} />
                 </div>
 
-                {/* DELETE BUTTON */}
+                <button
+                  className="edit-btn"
+                  onClick={() => openEdit(item)}
+                  title="Edit"
+                >
+                  <img src={penIcon} alt="edit" />
+                </button>
+
                 <button
                   className="delete-btn"
                   onClick={() => handleDelete(item)}
@@ -154,7 +206,6 @@ export default function AdminPanel() {
                   <img src={trashIcon} alt="delete" className="trash-img" />
                 </button>
 
-                {/* INFO */}
                 <div className="card-info">
                   <p className="item-name">{item.name}</p>
                   <p className="item-cal">{item.calories} cal</p>
@@ -165,17 +216,16 @@ export default function AdminPanel() {
         </div>
       ))}
 
-      {/* FAB */}
+      {/* ================= FLOATING ADD BUTTON ================= */}
       <button className="fab" onClick={() => setShowModal(true)}>
         +
       </button>
 
-      {/* MODAL */}
+      {/* ================= ADD MODAL ================= */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
             <h3>Add New Item</h3>
-
             <form onSubmit={handleSubmit}>
               <label>Select Category</label>
               <select value={category} onChange={(e) => setCategory(e.target.value)}>
@@ -223,6 +273,34 @@ export default function AdminPanel() {
                   Cancel
                 </button>
                 <button type="submit">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ================= EDIT MODAL ================= */}
+      {showEdit && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Edit Item</h3>
+
+            <form onSubmit={handleEditSave}>
+              <label>Item Name</label>
+              <input value={name} onChange={(e) => setName(e.target.value)} />
+
+              <label>Calories</label>
+              <input
+                type="number"
+                value={calories}
+                onChange={(e) => setCalories(e.target.value)}
+              />
+
+              <div className="modal-actions">
+                <button type="button" onClick={() => setShowEdit(false)}>
+                  Cancel
+                </button>
+                <button type="submit">Save Changes</button>
               </div>
             </form>
           </div>

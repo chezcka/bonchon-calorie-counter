@@ -143,6 +143,45 @@
   pointer-events: none;
 }
 
+/* ================= EDIT BUTTON ================= */
+
+.edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 56px; /* ← sits left of delete */
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 10px;
+  border: none;
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  padding: 0;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+
+  transition: transform .15s ease, background .15s ease;
+}
+
+.edit-btn:hover {
+  transform: scale(1.08);
+  background: #eef4ff;
+}
+
+.edit-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
 /* ================= FAB ================= */
 
 .fab {
