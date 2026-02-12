@@ -201,6 +201,12 @@ function CalorieCounterHome() {
               />
             </div>
 
+            {isOver && (
+              <div className="over-warning">
+                ⚠ You exceeded your goal by {totalCalories - goal} kcal
+              </div>
+            )}
+
             {plate.length === 0 ? (
               <div className="empty">
                 No items yet — add items from the left.

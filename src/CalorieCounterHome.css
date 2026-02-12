@@ -223,14 +223,22 @@ body {
 /* ============================= */
 /* WARNING                       */
 /* ============================= */
-.warning {
-  background: #ffeaea;
-  color: #d8000c;
-  padding: 8px;
+.over-warning {
+  margin-top: 10px;
+  padding: 10px;
+  background: #ff3b30;
+  color: white;
+  font-weight: bold;
   border-radius: 8px;
-  font-size: 13px;
-  margin-bottom: 10px;
   text-align: center;
+  animation: pop 0.2s ease;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+@keyframes pop {
+  from { transform: scale(0.95); }
+  to { transform: scale(1); }
 }
 
 /* ============================= */
