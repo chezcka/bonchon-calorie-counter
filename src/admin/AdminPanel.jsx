@@ -4,13 +4,23 @@ import baseMenu from "../data/menu.json";
 import { getAdminMenu, saveAdminMenu } from "../utils/menuStorage";
 import trashIcon from "../assets/trash-solid.svg";
 import penIcon from "../assets/pen-solid.svg";
+import reorderIcon from "../assets/reorder.svg";
+
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  horizontalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 import "./AdminPanel.css";
 
 export default function AdminPanel() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-
   const [editingItem, setEditingItem] = useState(null);
 
   const [category, setCategory] = useState("");
@@ -35,7 +45,6 @@ export default function AdminPanel() {
   baseMenu.forEach((item, index) => {
     const cat = item.category || "Uncategorized";
     if (!grouped[cat]) grouped[cat] = [];
-
     grouped[cat].push({
       ...item,
       id: `base-${index}`,
@@ -56,6 +65,11 @@ export default function AdminPanel() {
       else grouped[cat].push(adminItem);
     });
   }
+
+  /* ⭐ IMPORTANT: APPLY SAVED ORDER */
+  Object.keys(grouped).forEach((cat) => {
+    grouped[cat].sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+  });
 
   const categories = Object.keys(grouped);
 
@@ -89,10 +103,7 @@ export default function AdminPanel() {
     if (!finalCategory) return alert("Select or create category");
 
     const updated = { ...adminMenu };
-
-    if (!Array.isArray(updated[finalCategory])) {
-      updated[finalCategory] = [];
-    }
+    if (!Array.isArray(updated[finalCategory])) updated[finalCategory] = [];
 
     updated[finalCategory].push({
       id: Date.now(),
@@ -104,7 +115,6 @@ export default function AdminPanel() {
 
     saveAdminMenu(updated);
     window.dispatchEvent(new Event("menuUpdated"));
-
     setShowModal(false);
     setName("");
     setCalories("");
@@ -122,12 +132,9 @@ export default function AdminPanel() {
     const cat = item.category;
 
     if (!Array.isArray(updated[cat])) updated[cat] = [];
-
     updated[cat] = updated[cat].filter((i) => i.id !== item.id);
 
-    if (item.isBase) {
-      updated[cat].push({ ...item, deleted: true });
-    }
+    if (item.isBase) updated[cat].push({ ...item, deleted: true });
 
     saveAdminMenu(updated);
     window.dispatchEvent(new Event("menuUpdated"));
@@ -164,11 +171,49 @@ export default function AdminPanel() {
 
     saveAdminMenu(updated);
     window.dispatchEvent(new Event("menuUpdated"));
-
     setShowEdit(false);
     setEditingItem(null);
     setRefresh((p) => !p);
   };
+
+  /* ================= DRAG END (uses SAME save logic) ================= */
+  const handleDragEnd = (event, cat) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = grouped[cat].findIndex((i) => i.id === active.id);
+    const newIndex = grouped[cat].findIndex((i) => i.id === over.id);
+
+    const newList = arrayMove(grouped[cat], oldIndex, newIndex);
+
+    const updated = { ...adminMenu };
+    updated[cat] = newList.map((item, i) => ({
+      ...item,
+      order: i,
+      isBase: false,
+    }));
+
+    saveAdminMenu(updated);
+    window.dispatchEvent(new Event("menuUpdated"));
+    setRefresh((p) => !p);
+  };
+
+  /* ================= SORTABLE ITEM ================= */
+  function SortableItem({ item, children }) {
+    const { attributes, listeners, setNodeRef, transform, transition } =
+      useSortable({ id: item.id });
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+    };
+
+    return (
+      <div ref={setNodeRef} style={style} {...attributes}>
+        {children(listeners)}
+      </div>
+    );
+  }
 
   return (
     <div className="admin-panel">
@@ -183,40 +228,53 @@ export default function AdminPanel() {
         <div key={cat} className="category-block">
           <h3>{cat}</h3>
 
-          <div className="items-grid">
-            {grouped[cat].map((item) => (
-              <div key={item.id} className="admin-card">
-                <div className="image-area">
-                  <img src={getImage(item.image)} alt={item.name} />
-                </div>
+          <DndContext
+            collisionDetection={closestCenter}
+            onDragEnd={(e) => handleDragEnd(e, cat)}
+          >
+            <SortableContext
+              items={grouped[cat].map((i) => i.id)}
+              strategy={horizontalListSortingStrategy}
+            >
+              <div className="items-grid">
+                {grouped[cat].map((item) => (
+                  <SortableItem key={item.id} item={item}>
+                    {(listeners) => (
+                      <div className="admin-card">
+                        <div className="image-area">
+                          <img src={getImage(item.image)} alt={item.name} />
+                        </div>
 
-                <button
-                  className="edit-btn"
-                  onClick={() => openEdit(item)}
-                  title="Edit"
-                >
-                  <img src={penIcon} alt="edit" />
-                </button>
+                        <button className="edit-btn" onClick={() => openEdit(item)}>
+                          <img src={penIcon} alt="edit" />
+                        </button>
 
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(item)}
-                  title="Delete"
-                >
-                  <img src={trashIcon} alt="delete" className="trash-img" />
-                </button>
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleDelete(item)}
+                          title="Delete"
+                        >
+                          <img src={trashIcon} alt="delete" className="trash-img" />
+                        </button>
 
-                <div className="card-info">
-                  <p className="item-name">{item.name}</p>
-                  <p className="item-cal">{item.calories} cal</p>
-                </div>
+                        <button className="reorder-btn" {...listeners}>
+                          <img src={reorderIcon} alt="reorder" />
+                        </button>
+
+                        <div className="card-info">
+                          <p className="item-name">{item.name}</p>
+                          <p className="item-cal">{item.calories} cal</p>
+                        </div>
+                      </div>
+                    )}
+                  </SortableItem>
+                ))}
               </div>
-            ))}
-          </div>
+            </SortableContext>
+          </DndContext>
         </div>
       ))}
 
-      {/* ================= FLOATING ADD BUTTON ================= */}
       <button className="fab" onClick={() => setShowModal(true)}>
         +
       </button>
@@ -309,3 +367,4 @@ export default function AdminPanel() {
     </div>
   );
 }
+

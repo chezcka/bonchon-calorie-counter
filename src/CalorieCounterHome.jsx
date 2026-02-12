@@ -59,6 +59,9 @@ function CalorieCounterHome() {
     }
   });
 
+  /* ================= APPLY ADMIN ORDER ================= */
+  menu.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+
   /* ================= FILTER ================= */
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
