@@ -3,10 +3,43 @@
 /* ================= HEADER ================= */
 
 .admin-header {
+  position: sticky;
+  top: 20px;                 /* distance from top when sticking */
+  z-index: 1000;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+
+  background: white;
+  padding: 20px 28px;
+  border-radius: 18px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+
+  margin-bottom: 40px;
+}
+
+.admin-header {
+  backdrop-filter: blur(6px);
+}
+
+.admin-header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-title {
+  font-family: "Londrina Solid", cursive;
+  font-size: 34px;
+  margin: 0;
+}
+
+.admin-welcome {
+  margin-top: 6px;
+  font-size: 15px;
+  color: #666;
+  font-weight: 500;
 }
 
 .logout-btn {
@@ -33,17 +66,10 @@
 /* page */
 .admin-panel {
   min-height: 100vh;
-  padding: 40px;
+  padding: 30px 40px 40px 40px;
   background: #f7f7f9;
   font-family: "Rubik", sans-serif;
   color: #000;
-}
-
-.admin-panel h2 {
-  margin-bottom: 30px;
-  font-family: "Londrina Solid", cursive;
-  letter-spacing: 1px;
-  font-size: 34px;
 }
 
 /* category */
@@ -269,6 +295,8 @@
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  background-color: white !important;
+  color: #666 !important;
   font-family: "Rubik", sans-serif;
 }
 
@@ -295,6 +323,7 @@
 
 .modal-actions button[type="button"] {
   background: #eee;
+  color: #666 !important;
 }
 
 .modal-actions button[type="submit"] {

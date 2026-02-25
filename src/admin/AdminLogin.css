@@ -39,6 +39,8 @@ body {
   border-radius: 8px;
   border: 1px solid #ddd;
   font-size: 14px;
+  background-color: white !important;
+  color: #666 !important
 }
 
 .admin-login-card input:focus {

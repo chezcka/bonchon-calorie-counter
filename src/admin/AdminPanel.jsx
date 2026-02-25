@@ -218,7 +218,11 @@ export default function AdminPanel() {
   return (
     <div className="admin-panel">
       <div className="admin-header">
-        <h2>BonChon Calorie Counter Items</h2>
+        <div className="admin-header-left">
+          <h2 className="admin-title">BonChon Calorie Counter Items</h2>
+          <p className="admin-welcome">Welcome, Admin!</p>
+        </div>
+
         <button className="logout-btn" onClick={handleLogout}>
           Logout
         </button>
