@@ -61,7 +61,7 @@ body {
 
 .intro-text p {
   margin-top: 6px;
-  color: #666;
+  color: #666 !important;
   font-size: 14px;
   max-width: 900px;
 }
@@ -88,7 +88,7 @@ body {
 /* ============================= */
 .menu-panel {
   flex: 1;
-  background: white;
+  background: white !important;
   border-radius: 16px;
   padding: 25px;
   overflow-y: auto;
@@ -104,17 +104,28 @@ body {
   flex: 1;
   padding: 10px;
   border-radius: 10px;
+<<<<<<< HEAD
   border: 1px solid #ddd;
   background: white !important;
   color: #666;
+=======
+  border: 1px solid #ddd !important;
+  background: white !important;
+>>>>>>> bb3c774 (responsive to any browser)
 }
 
 .category {
   padding: 10px;
   border-radius: 10px;
+<<<<<<< HEAD
   border: 1px solid #ddd;
   color: #666 !important;
   background-color: white !important;
+=======
+  border: 1px solid #ddd !important;
+  background-color: white !important;
+  color: #666 !important;
+>>>>>>> bb3c774 (responsive to any browser)
 }
 
 /* ============================= */
@@ -150,15 +161,19 @@ body {
 }
 
 .item-name {
-  font-size: 14px;
+  font-size: 18px !important;
   font-family: "Londrina Solid", cursive;
   color: black !important;
+<<<<<<< HEAD
+=======
+  letter-spacing: .5px !important;
+>>>>>>> bb3c774 (responsive to any browser)
 }
 
 .item-cal {
   color: #e10600 !important;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px !important;
 }
 
 /* ============================= */
@@ -174,6 +189,10 @@ body {
   flex-direction: column;
 }
 
+.plate-panel label {
+  color: #666 !important;
+}
+
 .goal-box label {
   font-size: 14px;
 }
@@ -184,8 +203,13 @@ body {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ddd;
+<<<<<<< HEAD
   background-color: white;
   color: #666;
+=======
+  background-color: white !important;
+  color: #666 !important;
+>>>>>>> bb3c774 (responsive to any browser)
 }
 
 /* ============================= */
@@ -195,6 +219,10 @@ body {
   margin-top: 20px;
   text-align: center;
   color: black !important;
+}
+
+.total-box p {
+  color: #666 !important;
 }
 
 .total-box h2 {
@@ -333,7 +361,7 @@ body {
 /* minus */
 .qty button:first-child {
   background: #f1f1f1;
-  color: #333;
+  color: #333 !important;
 }
 
 .qty button:first-child:hover {
@@ -362,6 +390,7 @@ body {
 .qty,
 .remove {
   flex-shrink: 0;
+  color: black !important;
 }
 
 /* remove button */
