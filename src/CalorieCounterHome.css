@@ -104,28 +104,16 @@ body {
   flex: 1;
   padding: 10px;
   border-radius: 10px;
-<<<<<<< HEAD
-  border: 1px solid #ddd;
-  background: white !important;
-  color: #666;
-=======
   border: 1px solid #ddd !important;
   background: white !important;
->>>>>>> bb3c774 (responsive to any browser)
 }
 
 .category {
   padding: 10px;
   border-radius: 10px;
-<<<<<<< HEAD
-  border: 1px solid #ddd;
-  color: #666 !important;
-  background-color: white !important;
-=======
   border: 1px solid #ddd !important;
   background-color: white !important;
   color: #666 !important;
->>>>>>> bb3c774 (responsive to any browser)
 }
 
 /* ============================= */
@@ -164,10 +152,7 @@ body {
   font-size: 18px !important;
   font-family: "Londrina Solid", cursive;
   color: black !important;
-<<<<<<< HEAD
-=======
   letter-spacing: .5px !important;
->>>>>>> bb3c774 (responsive to any browser)
 }
 
 .item-cal {
@@ -203,13 +188,8 @@ body {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ddd;
-<<<<<<< HEAD
-  background-color: white;
-  color: #666;
-=======
   background-color: white !important;
   color: #666 !important;
->>>>>>> bb3c774 (responsive to any browser)
 }
 
 /* ============================= */
